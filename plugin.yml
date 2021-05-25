@@ -1,0 +1,12 @@
+---
+name: JoinQuitSendActionbar
+version: 1.0.0
+main: Meru\JoinQuitSendActionbar\Main
+api:
+  - 3.0.0
+  - 4.0.0
+description: "うるさくする"
+author: meru,tachan
+website: https://github.com/merunno/JoinQuitSendActionbar
+load: STARTUP
+...
