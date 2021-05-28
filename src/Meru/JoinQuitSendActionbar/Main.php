@@ -44,6 +44,7 @@ class Main extends PluginBase implements Listener{
         $playername = $player->getName();
         $this->allsendtip($playername, $join_message);
         $this->getScheduler()->scheduleDelayedTask(new ClosureTask(function (/** @noinspection PhpUnusedParameterInspection */ int $currentTick) use ($player) :void {
+	        $player->getLevelNonNull()->addParticle(new particle\HugeExplodeSeedParticle($player));
             $player->getLevelNonNull()->broadcastLevelSoundEvent($player, LevelSoundEventPacket::SOUND_EXPLODE);
             //$player->sendMessage("めるはばかpart2");
         }),10);
@@ -63,9 +64,9 @@ class Main extends PluginBase implements Listener{
 
 	    $pos = $player->asVector3();
         $this->getScheduler()->scheduleDelayedRepeatingTask(new ClosureTask(function (/** @noinspection PhpUnusedParameterInspection */ int $currentTick) use ($player, $level, $pos): void {
-	        $this->addParticle($level, new particle\HugeExplodeSeedParticle($player));
-	        $this->addParticle($level, new HugeExplodeParticle($player));
-	        $this->addParticle($level, new particle\ExplodeParticle($player));
+	        $level->addParticle(new particle\HugeExplodeSeedParticle($player));
+	        $level->addParticle(new HugeExplodeParticle($player));
+	        $level->addParticle(new particle\ExplodeParticle($player));
 	        foreach($level->getPlayers() as $target){
 	        	if($pos->distanceSquared($target) <= 25){//5*5
 			        $this->knockBack($target,$target->x - $pos->x, $target->z - $pos->z, 0.7);
@@ -82,15 +83,6 @@ class Main extends PluginBase implements Listener{
 	 */
     public function allsendtip(string $playername, string $message){
 	    $this->getServer()->broadcastTip(str_replace("%playername", $playername, $message));
-    }
-
-	/**
-	 * @param Level $level
-	 * @param particle\Particle $pos
-	 * @return void
-	 */
-	public function addParticle(Level $level, Particle\Particle $pos){
-		$level->addParticle($pos);
     }
 
 	/**
