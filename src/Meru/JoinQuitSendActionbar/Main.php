@@ -40,6 +40,7 @@ class Main extends PluginBase implements Listener{
         $player = $event->getPlayer();
         $join_message = $this->Config->get('join_message');
         $playername = $player->getName();
+        $event->setJoinMessage("");
         $this->allsendtip($playername, $join_message);
         $this->getScheduler()->scheduleDelayedTask(new ClosureTask(function(/** @noinspection PhpUnusedParameterInspection */ int $currentTick) use ($player): void{
             $player->getLevelNonNull()->addParticle(new particle\HugeExplodeSeedParticle($player));
@@ -58,8 +59,8 @@ class Main extends PluginBase implements Listener{
         $level = $player->getLevelNonNull();
         $quit_message = $this->Config->get('quit_message');
         $playername = $player->getName();
+        $event->setQuitMessage("");
         $this->allsendtip($playername, $quit_message);
-
         $pos = $player->asVector3();
         $this->getScheduler()->scheduleDelayedRepeatingTask(new ClosureTask(function(/** @noinspection PhpUnusedParameterInspection */ int $currentTick) use ($player, $level, $pos): void{
             $level->addParticle(new particle\HugeExplodeSeedParticle($player));
