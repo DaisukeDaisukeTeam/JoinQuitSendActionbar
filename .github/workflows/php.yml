@@ -19,7 +19,7 @@ jobs:
           php-version: "7.3"
           tools: composer, phpstan
           coverage: none
-          extensions: :opcache :xdebug
+          extensions: :opcache
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v2
