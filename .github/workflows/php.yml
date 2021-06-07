@@ -25,9 +25,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor
-          key: ${{ runner.os }}-php
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+            ${{ runner.os }}-php-
 
       - name: update autoload or Install dependencies
         run: (test -d vendor && (composer dump-autoload)) || (composer install --prefer-dist --no-progress --no-dev --ignore-platform-reqs)
