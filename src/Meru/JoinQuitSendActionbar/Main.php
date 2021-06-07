@@ -38,7 +38,12 @@ class Main extends PluginBase implements Listener{
      */
     public function onJoin(PlayerJoinEvent $event){
         $player = $event->getPlayer();
+        /** @var string|false $join_message */
         $join_message = $this->Config->get('join_message');
+        if($join_message === false){
+        	$this->getLogger()->warning("「SendActionbarMessage.yml」「join_message」に関しては、存在しない為、正しい動作を行う事はできません。");
+        	return;
+        }
         $playername = $player->getName();
         $event->setJoinMessage("");
         $this->allsendtip($playername, $join_message);
@@ -57,7 +62,12 @@ class Main extends PluginBase implements Listener{
     public function onQuit(PlayerQuitEvent $event){
         $player = $event->getPlayer();
         $level = $player->getLevelNonNull();
+		/** @var string|false $quit_message */
         $quit_message = $this->Config->get('quit_message');
+	    if($quit_message === false){
+		    $this->getLogger()->warning("「SendActionbarMessage.yml」「quit_message」に関しては、存在しない為、正しい動作を行う事はできません。");
+		    return;
+	    }
         $playername = $player->getName();
         $event->setQuitMessage("");
         $this->allsendtip($playername, $quit_message);
@@ -80,7 +90,7 @@ class Main extends PluginBase implements Listener{
      * @param string $message
      * @return void
      */
-    public function allsendtip(string $playername, string $message){
+    public function allsendtip(string $playername, string $message): void{
         $this->getServer()->broadcastTip(str_replace("%playername", $playername, $message));
     }
 

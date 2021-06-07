@@ -1,0 +1,11 @@
+parameters:
+  level: 8
+  checkExplicitMixed: true
+  checkMissingCallableSignature: true
+  bootstrapFiles:
+    - /vendor/autoload.php
+  paths:
+    - src
+  dynamicConstantNames:
+    - pocketmine\IS_DEVELOPMENT_BUILD
+    - pocketmine\DEBUG
