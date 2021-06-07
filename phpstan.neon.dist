@@ -2,8 +2,6 @@ parameters:
   level: 8
   checkExplicitMixed: true
   checkMissingCallableSignature: true
-  bootstrapFiles:
-    - /vendor/autoload.php
   paths:
     - src
   dynamicConstantNames:
